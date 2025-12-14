@@ -9,102 +9,91 @@
 
 #include <unistd.h>
 
-/*
-** Função auxiliar que verifica se um caractere é espaço em branco
-*/
-int	is_space(char c)
+static int is_space(char c)
 {
 	return (c == ' ' || c == '\t');
 }
 
-/*
-** Função auxiliar que imprime uma palavra
-** Retorna o índice após a palavra (pulando espaços)
-*/
-int	print_word(char *str, int i)
+/* print a word given a pointer to its start and length */
+static void write_word(const char *start, int len)
 {
-	int	start;
-	
-	start = i;
-	
-	// Encontra o fim da palavra
-	while (str[i] && !is_space(str[i]))
-		i++;
-	
-	// Imprime a palavra
-	write(1, &str[start], i - start);
-	
-	return (i);
+	if (len > 0)
+		write(1, start, len);
 }
 
-/*
-** Função principal
-** Rotaciona a string movendo a primeira palavra para o final
-*/
 int	main(int argc, char **argv)
 {
-	char	*str;
-	int		i;
-	int		first_word_start;
-	int		first_word_end;
-	
-	// Verifica se há exatamente 1 argumento
+	const char	*str;
+	const char	*p;
+	int			first_start = -1;
+	int			first_len = 0;
+	int			printed_any = 0;
+
 	if (argc < 2)
 	{
 		write(1, "\n", 1);
 		return (0);
 	}
-	
+
 	str = argv[1];
-	i = 0;
-	
-	// Pula espaços iniciais
-	while (str[i] && is_space(str[i]))
-		i++;
-	
-	// Guarda o início da primeira palavra
-	first_word_start = i;
-	
-	// Encontra o fim da primeira palavra
-	while (str[i] && !is_space(str[i]))
-		i++;
-	
-	first_word_end = i;
-	
-	// Pula espaços após a primeira palavra
-	while (str[i] && is_space(str[i]))
-		i++;
-	
-	// Imprime todas as palavras exceto a primeira
-	while (str[i])
+	p = str;
+
+	/* skip leading spaces */
+	while (*p && is_space(*p))
+		p++;
+
+	/* record first word start and length */
+	if (*p)
 	{
-		// Pula espaços
-		while (str[i] && is_space(str[i]))
-			i++;
-		
-		// Se encontrou uma palavra
-		if (str[i])
-		{
-			// Imprime a palavra
-			i = print_word(str, i);
-			
-			// Pula espaços após a palavra
-			while (str[i] && is_space(str[i]))
-				i++;
-			
-			// Se ainda há mais palavras ou se vamos imprimir a primeira palavra
-			// adiciona um espaço
-			if (str[i] || first_word_start < first_word_end)
-				write(1, " ", 1);
-		}
+		first_start = p - str;
+		while (p[first_len] && !is_space(p[first_len]))
+			first_len++;
 	}
-	
-	// Imprime a primeira palavra no final (se ela existir)
-	if (first_word_start < first_word_end)
+
+	/* start printing words after the first word */
+	p = str;
+	/* move p to just after the first word */
+	if (first_start >= 0)
+		p += first_start + first_len;
+	else
+		p = str;
+
+	/* iterate through remaining words and print them separated by single spaces */
+	while (*p)
 	{
-		write(1, &str[first_word_start], first_word_end - first_word_start);
+		/* skip spaces */
+		while (*p && is_space(*p))
+			p++;
+
+		if (!*p)
+			break;
+
+		/* find word length */
+		const char *word_start = p;
+		int wlen = 0;
+		while (p[wlen] && !is_space(p[wlen]))
+			wlen++;
+
+		/* print a space before subsequent words (not before the first printed one) */
+		if (printed_any)
+			write(1, " ", 1);
+
+		write_word(word_start, wlen);
+		printed_any = 1;
+
+		/* advance p */
+		p = word_start + wlen;
 	}
-	
+
+	/* if we printed some words and there is a first word, separate with a space */
+	if (first_len > 0)
+	{
+		if (printed_any)
+			write(1, " ", 1);
+		/* print the first word */
+		write_word(str + first_start, first_len);
+	}
+
 	write(1, "\n", 1);
 	return (0);
 }
