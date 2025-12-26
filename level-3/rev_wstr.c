@@ -10,21 +10,6 @@
 #include <unistd.h>
 
 /*
-** Função auxiliar que escreve uma string na saída padrão
-*/
-void	ft_putstr(char *str)
-{
-	int	i;
-	
-	i = 0;
-	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-}
-
-/*
 ** Função principal
 ** Imprime as palavras da string em ordem reversa
 */
