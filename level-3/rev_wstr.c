@@ -7,68 +7,54 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+  	 #include <stdlib.h>
+     #include <unistd.h>
 
-/*
-** Função principal
-** Imprime as palavras da string em ordem reversa
-*/
-int	main(int argc, char **argv)
+     static int is_space(char c) {
+       return (c == ' ' || (c >= 9 && c <= 13));
+     }
+
+     static int skip_spaces_left(const char *s, int i) 
 {
-	char	*str;
-	int		i;
-	int		start;
-	int		end;
-	
-	// Verifica se há exatamente 1 argumento
-	if (argc != 2)
-	{
-		write(1, "\n", 1);
-		return (0);
-	}
-	
-	str = argv[1];
-	
-	// Encontra o final da string
-	i = 0;
-	while (str[i])
-		i++;
-	
-	// Processa a string de trás para frente
-	while (i >= 0)
-	{
-		// Pula espaços e tabs no final
-		while (i >= 0 && (str[i] == ' ' || str[i] == '\t' || str[i] == '\0'))
-			i--;
-		
-		// Marca o fim da palavra
-		end = i;
-		
-		// Encontra o início da palavra
-		while (i >= 0 && str[i] != ' ' && str[i] != '\t')
-			i--;
-		
-		// Marca o início da palavra
-		start = i + 1;
-		
-		// Se encontrou uma palavra válida, imprime
-		if (start <= end)
-		{
-			// Imprime a palavra caractere por caractere
-			int j = start;
-			while (j <= end)
-			{
-				write(1, &str[j], 1);
-				j++;
-			}
-			
-			// Se não é a última palavra (ainda há mais caracteres antes)
-			// imprime um espaço
-			if (i > 0)
-				write(1, " ", 1);
-		}
-	}
-	
-	write(1, "\n", 1);
-	return (0);
-}
+       while (i >= 0 && is_space(s[i])) 
+		   i--;
+       return i;
+     }
+
+     static int skip_word_left(const char *s, int i) 
+{
+       while (i >= 0 && !is_space(s[i])) 
+		   i--;
+       return i;
+     }
+
+     static void write_word(const char *s, int start, int end) 
+{
+       while (start <= end) 
+		   write(1, &s[start++], 1);
+     }
+
+     int main(int argc, char **argv) 
+{
+       if (argc == 2) {
+         int i = 0;
+         while (argv[1][i]) 
+			 i++;
+         while (i >= 0) 
+		 {
+           i = skip_spaces_left(argv[1], i);
+           if (i < 0) 
+			   break;
+           int start = skip_word_left(argv[1], i) + 1;
+           write_word(argv[1], start, i);
+           i = skip_word_left(argv[1], i);
+           i = skip_spaces_left(argv[1], i);
+           if (i >= 0) 
+			   write(1, " ", 1);
+		   i--;
+         }
+       }
+       write(1, "\n", 1);
+       return 0;
+     }
+
