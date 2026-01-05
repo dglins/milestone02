@@ -20,14 +20,8 @@
 */
 void	ft_putstr(char *str)
 {
-	int	i;
-
-	i = 0;
 	// Percorre a string até o final (caractere nulo)
-	while (str[i] != '\0')
-	{
-		// Escreve um caractere por vez na saída padrão
-		write(1, &str[i], 1);
-		i++;
-	}
+	while (*str)
+		// Escreve um caractere por vez na saída padrão e avança
+		write(1, str++, 1);
 }
