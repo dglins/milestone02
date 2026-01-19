@@ -43,7 +43,7 @@ dev = ["ruff", "pyright", "pytest", "pytest-xdist"]
 # O valor aponta para 'nome_do_pacote.nome_do_modulo:nome_da_funcao'.
 # Ex: 'my_package.main:run' -> src/my_package/main.py (e a função run lá dentro).
 # Lembre-se de sincronizar o nome do pacote com 'known-first-party' do Ruff.
-pymodules = "my_package.my_module:run_from_script"
+pymodules = "main:cli"
 
 # ============================
 # Lint e formatação (Ruff)
@@ -107,7 +107,7 @@ line-ending = "lf"
 [tool.ruff.lint.isort]
 # Ensina ao Ruff qual é o pacote principal do seu projeto.
 # Deve ser o mesmo nome da pasta dentro de 'src/'.
-known-first-party = ["my_package"]
+known-first-party = ["pymodules"]
 
 
 # ============================

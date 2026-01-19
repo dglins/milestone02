@@ -1,12 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Define o diretório base
-BASE_DIR="mod00"
+read -rp "Nome da pasta principal (parent): " BASE_DIR
+read -rp "Quantas pastas de exercício criar (ex0..exN)? " COUNT
 
-# Cria o diretório base e as subpastas ex0..ex7
-for i in {0..7}; do
+if [[ -z "${BASE_DIR}" ]]; then
+  echo "❌ Nome da pasta principal não pode ser vazio."
+  exit 1
+fi
+
+if ! [[ "${COUNT}" =~ ^[0-9]+$ ]]; then
+  echo "❌ Quantidade deve ser um número inteiro."
+  exit 1
+fi
+
+mkdir -p "${BASE_DIR}"
+for ((i = 0; i < COUNT; i++)); do
   mkdir -p "${BASE_DIR}/ex${i}"
 done
 
-echo "Estrutura criada em ${BASE_DIR}/ex0..ex7"
+echo "Estrutura criada em ${BASE_DIR}/ex0..ex$((COUNT - 1))"
