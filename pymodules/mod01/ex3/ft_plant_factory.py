@@ -5,7 +5,7 @@
 class Plant:
     """Represents a plant with name, height (cm), and age (days)."""
 
-    def __init__(self, name: str, height: int, age: int) -> None:
+    def __init__(self, name: str, height: int = 0, age: int = 0) -> None:
         """Initialize plant."""
         self.name: str = name
         self.height: int = height
@@ -25,8 +25,8 @@ class Plant:
         self.age_one_day(1)
 
     def get_info(self) -> str:
-        """Return representation of plant."""
-        return f"{self.name}: {self.height}cm, {self.age} days old"
+        """Return current status of plant."""
+        return self.name, self.height, self.age
 
 
 def grow_days(plant: Plant, days: int = 7) -> None:
@@ -35,27 +35,27 @@ def grow_days(plant: Plant, days: int = 7) -> None:
         plant.day_pass()
 
 
-def run_cli(plant: Plant, days_to_grow: int = 7) -> None:
-    """Creates a plant, simulates a week, and shows before/after."""
-    print("\n\n=== Day 1 ===")
-    print(plant.get_info())
-    initial_hight: int = plant.height
-    grow_days(plant, days_to_grow)
-    print(f"=== Day {days_to_grow} ===")
-    print(plant.get_info())
-    print(f"Growth this week: +{plant.height - initial_hight}cm")
+def run_cli(plants: list[Plant]) -> None:
+    """Creates plants and shows all my plants created."""
+    print("\n\n=== Plant Factory Output ===")
+    total_plants = 0
+    for plant in plants:
+        name, height, days = plant.get_info()
+        print(f"Created: {name} ({height}cm, {days} days)")
+        total_plants += 1
+    print(f"\nTotal plants created: {total_plants}")
 
 
 def main() -> None:
-    """Runs my functions if main."""
-    rose: Plant = Plant("Rose", 25, 30)
-    run_cli(rose, 7)
-    tomato: Plant = Plant("Tomato", 3, 10)
-    run_cli(tomato, 7)
-    banana: Plant = Plant("Banana", 12, 6)
-    run_cli(banana, 7)
-    peach: Plant = Plant("Peach", 2, 3)
-    run_cli(peach, 7)
+    """Runs my functions at if main."""
+    list_of_plants: list[Plant] = [
+        Plant("Rose", 10, 2),
+        Plant("Tomato", 2, 9),
+        Plant("Banana", 4, 8),
+        Plant("Peach", 89, 9),
+        Plant("Sunflower", 10, 92),
+    ]
+    run_cli(list_of_plants)
 
 
 if __name__ == "__main__":
