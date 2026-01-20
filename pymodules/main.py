@@ -18,8 +18,8 @@ import argparse
 import importlib
 import shutil
 import sys
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 EXERCISE_MAP: dict[str, Iterable[str]] = {
     "0": ("ft_hello_garden",),
