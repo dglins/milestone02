@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Module to registry plants."""
+"""Module to registry plants using a class."""
 
 
 class Plant:
@@ -28,20 +28,9 @@ def run_cli() -> None:
         print(plant)
 
 
-def run_cli_input() -> None:
-    """Creates and shows plants with input."""
-    name = input("Plant: ")
-    height = input("Height: ")
-    age = input("Age: ")
-    plant = Plant(name, height, age)
-    print("=== Garden Plant Registry ===")
-    print(plant)
-
-
 def main() -> None:
     """Runs my functions if main."""
     run_cli()
-    run_cli_input()
 
 
 if __name__ == "__main__":
