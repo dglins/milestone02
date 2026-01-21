@@ -50,13 +50,8 @@ class Plant:
         print(f"\nTotal plants created: {total_plants}")
 
 
-def run_cli(list_plants: list[tuple[str, int, int]]) -> None:
+def run_cli() -> None:
     """Creates plants using Factory."""
-    Plant.plant_factory(list_plants)
-
-
-def main() -> None:
-    """Tests code using cli."""
     list_of_plants: list[tuple[str, int, int]] = [
         ("Rose", 10, 2),
         ("Tomato", 2, 9),
@@ -64,7 +59,12 @@ def main() -> None:
         ("Peach", 89, 9),
         ("Sunflower", 10, 92),
     ]
-    run_cli(list_of_plants)
+    Plant.plant_factory(list_of_plants)
+
+
+def main() -> None:
+    """Tests code using cli."""
+    run_cli()
 
 
 if __name__ == "__main__":

@@ -24,7 +24,7 @@ class Plant:
         self.grow(1)
         self.age(1)
 
-    def get_info(self) -> dict[str, str]:
+    def get_info(self) -> dict[str, int | str]:
         """Return informations of plant."""
         return self.__dict__
 
@@ -34,29 +34,32 @@ class Plant:
 
     def grow_days(self, days: int = 7) -> None:
         """Advance the plant by a number of days (default: 7)."""
+        print("\n\n=== Day 1 ===")
+        print(self)
+        init_height: int = self.initial_height
         for _ in range(days - 1):
             self.day_pass()
+        print(f"=== Day {days} ===")
+        print(f"Growth this week: +{self.initial_height - init_height}cm")
 
     @classmethod
-    def plant_factory(cls, list_plants: list[tuple[str, int, int]]) -> None:
+    def plant_factory(cls, list_plants: list[tuple[str, int, int]]) -> list["Plant"]:
         print("\n\n=== Plant Factory Output ===")
         total_plants = 0
+        plants: list[Plant] = []
         for name_inl, initial_age_inl, initial_height_inl in list_plants:
-            cls(name_inl, initial_age_inl, initial_height_inl)
+            plant = cls(name_inl, initial_age_inl, initial_height_inl)
+            plants = [*plants, plant]
             print(
                 f"Created: {name_inl} ({initial_height_inl}cm, {initial_age_inl} days)"
             )
             total_plants += 1
         print(f"\nTotal plants created: {total_plants}")
+        return plants
 
 
-def run_cli(list_plants: list[tuple[str, int, int]]) -> None:
+def run_cli() -> None:
     """Creates plants using Factory."""
-    Plant.plant_factory(list_plants)
-
-
-def main() -> None:
-    """Tests code using cli."""
     list_of_plants: list[tuple[str, int, int]] = [
         ("Rose", 10, 2),
         ("Tomato", 2, 9),
@@ -64,7 +67,12 @@ def main() -> None:
         ("Peach", 89, 9),
         ("Sunflower", 10, 92),
     ]
-    run_cli(list_of_plants)
+    Plant.plant_factory(list_of_plants)
+
+
+def main() -> None:
+    """Tests code using cli."""
+    run_cli()
 
 
 if __name__ == "__main__":
