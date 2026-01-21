@@ -5,10 +5,6 @@
 class Plant:
     """Represents a plant with name, height (cm), and age (days)."""
 
-
-class Plant:
-    """Represents a plant with name, height (cm), and age (days)."""
-
     def __init__(self, name: str, initial_height: int, initial_age: int) -> None:
         """Initialize plant."""
         self.name: str = name
@@ -42,19 +38,21 @@ class Plant:
             self.day_pass()
 
     @classmethod
-    def plant_factory(cls, name: str, initial_age: int, initial_height: int) -> Plant:
-        print(f"Created: {name} ({initial_height}cm, {initial_age} days)")
-        return cls(name, initial_age, initial_height)
+    def plant_factory(cls, list_plants: list[tuple[str, int, int]]) -> None:
+        print("\n\n=== Plant Factory Output ===")
+        total_plants = 0
+        for name_inl, initial_age_inl, initial_height_inl in list_plants:
+            cls(name_inl, initial_age_inl, initial_height_inl)
+            print(
+                f"Created: {name_inl} ({initial_height_inl}cm, {initial_age_inl} days)"
+            )
+            total_plants += 1
+        print(f"\nTotal plants created: {total_plants}")
 
 
 def run_cli(list_plants: list[tuple[str, int, int]]) -> None:
-    """Creates plants using Factory and shows how many plants was created."""
-    print("\n\n=== Plant Factory Output ===")
-    total_plants = 0
-    for name, initial_age, initial_height in list_plants:
-        Plant.plant_factory(name, initial_age, initial_height)
-        total_plants += 1
-    print(f"\nTotal plants created: {total_plants}")
+    """Creates plants using Factory."""
+    Plant.plant_factory(list_plants)
 
 
 def main() -> None:
