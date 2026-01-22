@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Module to implement specialization."""
+"""Module to implement nested components and inheritance chains."""
 
 
 class Plant:
@@ -37,59 +37,30 @@ class Plant:
         )
 
 
-class Flower(Plant):
-    """Specialized plant flower blueprint"""
+class FloweringPlant(Plant):
+    """Specialized plant blueprint"""
 
-    def __init__(
-        self, name: str, height: int, age: int, special_atribute: str
-    ) -> None:
+    def __init__(self, name: str, height: int, age: int) -> None:
         super().__init__(name, height, age)
-        self.color = special_atribute
         self.get_msg_type()
-        self.bloom()
 
     def get_msg_type(self) -> str:
         print(f"{self}, {self.color} color")
 
-    def bloom(self) -> str:
-        print(f"{self.name} is blooming beautifully!\n")
 
+class PrizeFlower(FloweringPlant):
+    """Specialized floweringplant blueprint"""
 
-class Tree(Plant):
-    """Specialized plant tree blueprint"""
-
-    def __init__(
-        self, name: str, height: int, age: int, special_atribute: int
-    ) -> None:
+    def __init__(self, name: str, height: int, age: int) -> None:
         super().__init__(name, height, age)
-        self.trunk_diameter = special_atribute
         self.get_msg_type()
-        self.produce_shade()
 
     def get_msg_type(self) -> str:
         print(f"{self} {self.trunk_diameter} diameter")
 
-    def produce_shade(self) -> str:
-        shade: int = self.trunk_diameter + (self._height / 70)
-        print(f"{self.name} provides {shade:.0f} square meters of shade\n")
 
-
-class Vegetable(Plant):
+class GardenManager:
     """Specialized plant vegetable blueprint"""
-
-    def __init__(
-        self,
-        name: str,
-        height: int,
-        age: int,
-        special_atribute: str,
-        special_atribute2: str,
-    ) -> None:
-        super().__init__(name, height, age)
-        self.harvest_season = special_atribute
-        self.nutritional_value = special_atribute2
-        self.get_msg_type()
-        self.get_nutrition()
 
     def get_msg_type(self) -> str:
         print(f"{self} {self.harvest_season} harvest")
@@ -100,14 +71,6 @@ class Vegetable(Plant):
 
 def run_cli() -> None:
     print("\n=== Garden Plant Types ===\n")
-    Flower("Rose", 10, 5, "azul")
-    Flower("Tulip", 12, 5, "purple")
-
-    Tree("Oak", 400, 50, 40)
-    Tree("Apple tree", 280, 20, 60)
-
-    Vegetable("Carrot", 8, 20, "summer", "Vitamin C")
-    Vegetable("Potato", 5, 50, "winter", "Vitamin B")
 
 
 def main() -> None:

@@ -18,7 +18,9 @@ class SecurePlant:
 
     def set_height(self, height: int) -> None:
         if height < 0:
-            print(f"\nInvalid operation attempted: height {height}cm [REJECTED]")
+            print(
+                f"\nInvalid operation attempted: height {height}cm [REJECTED]"
+            )
             print("Security: Negative height rejected\n")
             return
         print(f"Height updated: {height}cm [OK]")
@@ -42,10 +44,9 @@ class SecurePlant:
 
     def __str__(self) -> str:
         return (
-            f"Current plant: {self.name} ({self.get_height()}cm, {self.get_age()} days)"
+            f"Current plant: {self.name} "
+            f"({self.get_height()}cm, {self.get_age()} days)"
         )
-
-    # ===== BEHAVIORS ======
 
 
 def run_cli() -> None:

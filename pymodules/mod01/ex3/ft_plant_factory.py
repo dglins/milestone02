@@ -43,14 +43,18 @@ class Plant:
         print(f"Growth this week: +{self.in_height - init_height}cm")
 
     @classmethod
-    def plant_factory(cls, list_plants: list[tuple[str, int, int]]) -> list["Plant"]:
+    def plant_factory(
+        cls, list_plants: list[tuple[str, int, int]]
+    ) -> list["Plant"]:
         print("\n\n=== Plant Factory Output ===")
         total_plants = 0
         plants: list[Plant] = []
         for name_inl, in_age_inl, in_height_inl in list_plants:
             plant = cls(name_inl, in_age_inl, in_height_inl)
             plants = [*plants, plant]
-            print(f"Created: {name_inl} ({in_height_inl}cm, {in_age_inl} days)")
+            print(
+                f"Created: {name_inl} ({in_height_inl}cm, {in_age_inl} days)"
+            )
             total_plants += 1
         print(f"\nTotal plants created: {total_plants}")
         return plants
