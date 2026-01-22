@@ -5,12 +5,12 @@
 class SecurePlant:
     """Represents a plant and its internal state."""
 
-    msg_sys = "=== Garden Security System ==="
+    msg_sys = "\n=== Garden Security System ==="
 
     def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
-        self._height = height
-        self._age = age
+        self._height = self.set_height(height)
+        self._age = self.set_age(age)
         print(SecurePlant.msg_sys)
         print(f"Plant created: {self.name}")
 
@@ -49,8 +49,11 @@ class SecurePlant:
 
 
 def run_cli() -> None:
-    plant = SecurePlant("Rose", height=10, age=5)
+    tomato = SecurePlant("Tomato", height=-10, age=-5)
+    print(tomato)
 
+    plant = SecurePlant("Rose", height=10, age=5)
+    print(plant)
     plant.set_height(25)
     plant.set_age(30)
 
