@@ -36,7 +36,7 @@ Homepage = "https://github.com/dglins"
 # Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 
 [project.optional-dependencies]
-dev = ["ruff", "pyright", "pytest", "pytest-xdist"]
+dev = ["ruff", "pyright", "pytest", "pytest-xdist", "flake8"]
 
 [project.scripts]
 # Define os comandos de console. A chave ('pymodules') é o comando.
@@ -58,41 +58,42 @@ exclude = ["venv", ".venv", "env", ".env", "node_modules", "__pycache__"]
 
 [tool.ruff.lint]
 select = [
-    "ASYNC",
-    "A",
-    "ANN",
-    "B",
-    "BLE",
-    "C4",
-    "C90",
-    "COM",
-    "E",
-    "EM",
-    "ERA",
-    "EXE",
-    "F",
-    "FBT",
-    "FIX",
-    "I",
-    "ICN",
-    "ISC",
-    "Q",
-    "RET",
-    "RSE",
-    "S",
-    "SIM",
-    "SLF",
-    "T10",
-    "T20",
-    "TC",
-    "TD",
-    "TRY",
-    "UP",
-    "W",
-    "YTT",
-    "RUF",
-    "N",
-    "ANN201",
+  "ASYNC",
+  "A",
+  "ANN",
+  "B",
+  "BLE",
+  "C4",
+  "C90",
+  "COM",
+  "E",
+  "EM",
+  "ERA",
+  "EXE",
+  "E501",
+  "F",
+  "FBT",
+  "FIX",
+  "I",
+  "ICN",
+  "ISC",
+  "Q",
+  "RET",
+  "RSE",
+  "S",
+  "SIM",
+  "SLF",
+  "T10",
+  "T20",
+  "TC",
+  "TD",
+  "TRY",
+  "UP",
+  "W",
+  "YTT",
+  "RUF",
+  "N",
+  "ANN201",
 ]
 ignore = ["T201", "COM812"]
 
@@ -118,12 +119,12 @@ typeCheckingMode = "strict"
 pythonVersion = "3.14"
 include = ["pymodules"]
 exclude = [
-    "**/venv",
-    "**/.venv",
-    "**/env",
-    "**/.env",
-    "**/node_modules",
-    "**/__pycache__",
+  "**/venv",
+  "**/.venv",
+  "**/env",
+  "**/.env",
+  "**/node_modules",
+  "**/__pycache__",
 ]
 venv = ".venv"
 venvPath = "."
