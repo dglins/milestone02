@@ -12,27 +12,27 @@ class Plant:
         self.name = name
         self._height = height
 
-    def grow(self, cm: int = 1) -> None:
+    def set_height(self, cm: int = 1) -> None:
         self._height += cm
         print(f"{self.name} grew {cm}cm")
 
-    @property
-    def height(self) -> int:
+    def get_height(self) -> int:
         return self._height
 
     def describe(self) -> str:
-        return f"{self.name}: {self.height}cm"
+        return f"{self.name}: {self.get_height()}cm"
 
 
 class FloweringPlant(Plant):
     def __init__(self, name: str, height: int, color: str) -> None:
         super().__init__(name, height)
         self.color = color
-        self.blooming = True
 
     def describe(self) -> str:
-        status = "blooming" if self.blooming else "not blooming"
-        return f"{self.name}: {self.height}cm, {self.color} flowers ({status})"
+        return (
+            f"{self.name}: {self.get_height()}cm, "
+            f"{self.color} flowers (blooming)"
+        )
 
 
 class PrizeFlower(FloweringPlant):
@@ -44,12 +44,16 @@ class PrizeFlower(FloweringPlant):
         prize_points: int,
     ) -> None:
         super().__init__(name, height, color)
-        self.prize_points = prize_points
+        self._prize_points = prize_points
+
+    def get_prize_points(self) -> int:
+        return self._prize_points
 
     def describe(self) -> str:
         return (
-            f"{self.name}: {self.height}cm, {self.color} flowers (blooming), "
-            f"Prize points: {self.prize_points}"
+            f"{self.name}: {self.get_height()}cm, "
+            f"{self.color} flowers (blooming), "
+            f"Prize points: {self.get_prize_points()}"
         )
 
 
@@ -71,7 +75,7 @@ class Garden:
     def help_plants_grow(self) -> None:
         print(f"{self.owner} is helping all plants grow...")
         for plant in self._plants:
-            plant.grow(1)
+            plant.set_height(1)
             self._total_growth += 1
 
     def list_plants(self) -> None:
@@ -80,10 +84,9 @@ class Garden:
             print(f"- {plant.describe()}")
 
     def get_plants(self) -> list[Plant]:
-        return list(self._plants)
+        return self._plants
 
-    @property
-    def total_growth(self) -> int:
+    def get_total_growth(self) -> int:
         return self._total_growth
 
 
@@ -143,16 +146,16 @@ class GardenManager:
 
         @staticmethod
         def garden_score(garden: Garden) -> int:
-            score = garden.total_growth * 10
+            score = garden.get_total_growth() * 10
             for plant in garden.get_plants():
                 if isinstance(plant, PrizeFlower):
-                    score += plant.prize_points * 10
-                score += plant.height
+                    score += plant.get_prize_points() * 10
+                score += plant.get_height()
             return score
 
 
 # =========================
-# Demo
+# Cli
 # =========================
 
 
@@ -177,7 +180,8 @@ def main() -> None:
     counts = stats.plant_counts(alice)
 
     print(
-        f"Plants added: {len(alice.get_plants())}, Total growth: {alice.total_growth}cm"
+        f"Plants added: {len(alice.get_plants())}, "
+        f"Total growth: {alice.get_total_growth()}cm"
     )
     print(
         f"Plant types: {counts['regular']} regular, "
