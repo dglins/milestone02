@@ -1,60 +1,64 @@
 #!/usr/bin/env python3
-"""
-$> python3 ft_different_errors.py
-=== Garden Error Types Demo ===
-Testing ValueError...
-Caught ValueError: invalid literal for int()
-Testing ZeroDivisionError...
-Caught ZeroDivisionError: division by zero
-Testing FileNotFoundError...
-Caught FileNotFoundError: No such file 'missing.txt'
-Testing KeyError...
-Caught KeyError: 'missing\_plant'
-Testing multiple errors together...
-Caught an error, but program continues!
-All error types tested successfully!
-"""
 
 
-def garden_operations(type_error: str) -> None:
-    match type_error:
+def garden_operations(error_type: str) -> None:
+    """Generates erros types. Depends on error_type."""
+    match error_type:
         case "ValueError":
-            try:
-                int("abc")
-            except ValueError as error:
-                return error
+            int("abc")
+
         case "ZeroDivisionError":
-            try:
-                x = 4 / 0
-            except ZeroDivisionError as error:
-                return error
+            _ = 10 / 0
+
         case "FileNotFoundError":
+            f = None
             try:
-                open("file.txt")
-            except FileNotFoundError as error:
-                return error
+                f = open("missing.txt")
             finally:
-                close("file.txt")
+                if f is not None:
+                    f.close()
+
         case "KeyError":
-            try:
-                my_dict = {"try_this: 0"}
+            {"roses": 5}["missing/_plant"]
+
+        case _:
+            raise ValueError("Unknown error type")
 
 
-def test_temperature_input() -> None:
-    print("\n=== Garden Error Types Demo ===\n")
-    temp_str: str = "25"
-    print(f"\nTesting temperature: {temp_str}")
-    check_temperature(temp_str)
-    temp_str: str = "abc"
-    print(f"\nTesting temperature: {temp_str}")
-    check_temperature(temp_str)
-    temp_str: str = "100"
-    print(f"\nTesting temperature: {temp_str}")
-    check_temperature(temp_str)
-    temp_str: str = "-50"
-    print(f"\nTesting temperature: {temp_str}")
-    check_temperature(temp_str)
+def test_error_types() -> None:
+    """Tests garden_operations. Shows error messages."""
+    print("=== Garden Error Types Demo ===")
+
+    tests = (
+        "ValueError",
+        "ZeroDivisionError",
+        "FileNotFoundError",
+        "KeyError",
+    )
+
+    for test in tests:
+        try:
+            print(f"\nTesting {test}...")
+            garden_operations(test)
+
+        except FileNotFoundError as e:
+            print(f"Caught FileNotFoundError: No such file '{e.filename}'")
+
+        except KeyError as e:
+            print(f"Caught KeyError: {e.args[0]!r}")
+
+        except Exception as e:
+            print(f"Caught {e.__class__.__name__}: {e.args[0]}")
+
+    print("\nTesting multiple errors together...")
+    try:
+        garden_operations("ValueError")
+        garden_operations("ZeroDivisionError")
+    except (ValueError, ZeroDivisionError):
+        print("Caught an error, but program continues!\n")
+
+    print("All error types tested successfully!")
 
 
 if __name__ == "__main__":
-    test_temperature_input()
+    test_error_types()
