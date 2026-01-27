@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
+"""Module to implement arguments using sys.argv"""
 
 import sys
 
 
 def ft_command_quest(args: list[str]) -> None:
+    """Function that takes arguments from argv"""
     print("=== Command Quest ===")
 
-    arguments = len(args)
+    arguments: int = len(args)
 
     if arguments < 2:
         print("No arguments provided!")
