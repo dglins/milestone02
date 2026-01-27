@@ -26,7 +26,10 @@ readme = "README.md"
 license = "MIT"
 authors = [{ name = "dgouvea", email = "dgouvea-@email.com" }]
 requires-python = ">=3.14"
-dependencies = ["python-dotenv>=1.1.0"]
+dependencies = [
+    "flake8>=7.3.0",
+    "python-dotenv>=1.1.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/dglins"

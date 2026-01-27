@@ -15,7 +15,7 @@ if ! [[ "${COUNT}" =~ ^[0-9]+$ ]]; then
 fi
 
 mkdir -p "${BASE_DIR}"
-for ((i = 0; i < COUNT; i++)); do
+for ((i = 0; i < COUNT + 1; i++)); do
   mkdir -p "${BASE_DIR}/ex${i}"
 done
 

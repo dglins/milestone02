@@ -111,6 +111,7 @@ name = "pymodules"
 version = "0.0.1"
 source = { virtual = "." }
 dependencies = [
+    { name = "flake8" },
     { name = "python-dotenv" },
 ]
 
@@ -125,6 +126,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "flake8", specifier = ">=7.3.0" },
     { name = "flake8", marker = "extra == 'dev'" },
     { name = "pyright", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
