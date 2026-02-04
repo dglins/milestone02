@@ -56,9 +56,7 @@ def ft_crisis_response():
     )
     try:
         # Attempting to open a common restricted directory like /root to trigger PermissionError
-        with open(
-            "/root", "r"
-        ) as file:  # This should cause a PermissionError in most Linux systems
+        with open("/root", "r") as file:
             content = file.read()
             print(
                 f"[CRISIS ALERT] Restricted vault accessed. Content: {content}"
@@ -73,9 +71,7 @@ def ft_crisis_response():
         print(
             "[RESPONSE] Failsafe protocol: Unauthorized access attempt blocked. Security incident logged."
         )
-    except (
-        FileNotFoundError
-    ):  # Catch if /root itself doesn't exist for some reason
+    except FileNotFoundError:
         print("[CRISIS ALERT] Target /root not found (unexpected).")
         print("[RESPONSE] Initiating system integrity check.")
     except Exception as e:
@@ -89,9 +85,7 @@ def ft_crisis_response():
     # Scenario 4: Unexpected System Anomaly (General Exception, e.g., reading binary as text)
     print("\n--- Attempting access to malformed_data.txt ---")
     try:
-        with open(
-            "malformed_data.txt", "r"
-        ) as file:  # Reading binary data as text will raise an error
+        with open("malformed_data.txt", "r") as file:
             content = file.read()
             print(
                 f"[CRISIS ALERT] Malformed data archive accessed. Content: {
