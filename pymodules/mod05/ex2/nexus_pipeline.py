@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from abc import ABC, abstractmethod
-from typing import Any, List, Protocol
 import time
+from abc import ABC, abstractmethod
+from typing import Any, Protocol
 
 
 class ProcessingStage(Protocol):
@@ -26,7 +26,7 @@ class OutputStage:
 
 class ProcessingPipeline(ABC):
     def __init__(self):
-        self.stages: List[ProcessingStage] = [
+        self.stages: list[ProcessingStage] = [
             InputStage(),
             TransformStage(),
             OutputStage(),
@@ -59,7 +59,7 @@ class StreamAdapter(ProcessingPipeline):
 
 class NexusManager:
     def __init__(self):
-        self.pipelines: List[ProcessingPipeline] = []
+        self.pipelines: list[ProcessingPipeline] = []
 
     def add(self, pipeline: ProcessingPipeline):
         self.pipelines.append(pipeline)

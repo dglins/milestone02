@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from abc import ABC, abstractmethod
-from typing import Any, List
+from typing import Any
 
 
 class DataProcessor(ABC):
@@ -25,7 +25,7 @@ class NumericProcessor(DataProcessor):
 
     def process(self, data: Any) -> str:
         if not self.validate(data):
-            raise ValueError("Invalid numeric data")
+            return "Invalid numeric data"
 
         total = sum(data)
         avg = total / len(data)
@@ -39,7 +39,7 @@ class TextProcessor(DataProcessor):
 
     def process(self, data: Any) -> str:
         if not self.validate(data):
-            raise ValueError("Invalid text data")
+            return "Invalid text data"
 
         chars = len(data)
         words = len(data.split())
@@ -53,14 +53,14 @@ class LogProcessor(DataProcessor):
 
     def process(self, data: Any) -> str:
         if not self.validate(data):
-            raise ValueError("Invalid log entry")
+            return "Invalid log entry"
 
         level, _, msg = data.partition(":")
         return f"[{level}] {level} level detected: {msg.strip()}"
 
 
 if __name__ == "__main__":
-    processors: List[DataProcessor] = [
+    processors: list[DataProcessor] = [
         NumericProcessor(),
         TextProcessor(),
         LogProcessor(),
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         "INFO: System ready",
     ]
 
-    for p, s in zip(processors, samples):
+    for p, s in zip(processors, samples, strict=False):
         try:
             result = p.process(s)
             print(p.format_output(result))
