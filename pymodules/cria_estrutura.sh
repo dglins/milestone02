@@ -19,4 +19,4 @@ for ((i = 0; i < COUNT + 1; i++)); do
   mkdir -p "${BASE_DIR}/ex${i}"
 done
 
-echo "Estrutura criada em ${BASE_DIR}/ex0..ex$((COUNT - 1))"
+echo "Estrutura criada em ${BASE_DIR}/ex0..ex$((COUNT))"
