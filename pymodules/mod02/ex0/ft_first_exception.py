@@ -16,19 +16,34 @@ def check_temperature(temp_str: str) -> None:
 
 
 def test_temperature_input() -> None:
-    print("\n=== Garden Temperature Checker ===\n")
-    temp_str: str = "25"
-    print(f"\nTesting temperature: {temp_str}")
-    check_temperature(temp_str)
-    temp_str: str = "abc"
-    print(f"\nTesting temperature: {temp_str}")
-    check_temperature(temp_str)
-    temp_str: str = "100"
-    print(f"\nTesting temperature: {temp_str}")
-    check_temperature(temp_str)
-    temp_str: str = "-50"
-    print(f"\nTesting temperature: {temp_str}")
-    check_temperature(temp_str)
+    try:
+        print("\n=== Garden Temperature Checker ===\n")
+
+        temp_str: str = "25"
+        print()
+        print(f"Testing temperature: {temp_str}")
+        check_temperature(temp_str)
+
+        temp_str: str = "abc"
+        print()
+        print(f"Testing temperature: {temp_str}")
+        check_temperature(temp_str)
+
+        temp_str: str = "100"
+        print()
+        print(f"Testing temperature: {temp_str}")
+        check_temperature(temp_str)
+
+        temp_str: str = "-50"
+        print()
+        print(f"Testing temperature: {temp_str}")
+        check_temperature(temp_str)
+
+    except Exception:
+        return print("something wrong!")
+    else:
+        print()
+        return print("All tests completed - program didn't crash!")
 
 
 if __name__ == "__main__":
