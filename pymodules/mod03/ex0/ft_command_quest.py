@@ -7,8 +7,11 @@ import sys
 def ft_command_quest(args: list[str]) -> None:
     """Function that takes arguments from argv"""
     print("=== Command Quest ===")
-
-    arguments: int = len(args)
+    try:
+        arguments: int = len(args)
+    except Exception as e:
+        print(f"Error: {e}")
+        return
 
     if arguments < 2:
         print("No arguments provided!")

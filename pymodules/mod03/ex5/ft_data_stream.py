@@ -44,7 +44,9 @@ class StreamWizard:
 def process_stream(count: int = 1000):
     wizard = StreamWizard()
     print("=== Game Data Stream Processor ===")
+    print()
     print(f"Processing {count} game events...")
+    print()
 
     high_level_count = 0
     treasure_count = 0
@@ -69,14 +71,16 @@ def process_stream(count: int = 1000):
     end_time = time.time()
 
     print("...")
+    print()
     print("=== Stream Analytics ===")
     print(f"Total events processed: {count}")
     print(f"High-level players (10+): {high_level_count}")
     print(f"Treasure events: {treasure_count}")
     print(f"Level-up events: {levelup_count}")
+    print()
     print("Memory usage: Constant (streaming)")
     print(f"Processing time: {end_time - start_time:.3f} seconds")
-
+    print()
     print("\n=== Generator Demonstration ===")
     fib_list = [str(n) for n in wizard.fibonacci_gen(10)]
     print(f"Fibonacci sequence (first 10): {', '.join(fib_list)}")

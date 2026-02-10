@@ -36,10 +36,12 @@ def main():
     # Goal: Extract names of high scorers and create a list of doubled scores
     high_scorers = [p["name"] for p in raw_players if p["score"] > 2000]
     doubled_scores = [p["score"] * 2 for p in raw_players]
+    active_players = [p['name'] for p in raw_players]
 
     print("\n=== List Comprehension Examples ===")
     print(f"High scorers (>2000): {high_scorers}")
     print(f"Scores doubled: {doubled_scores}")
+    print(f"Active players: {active_players}")
 
     # --- Dict Comprehensions: Mappings & Logic ---
     # Goal: Create quick lookups and categorize data
@@ -61,7 +63,7 @@ def main():
     # --- Set Comprehensions: Deduplication ---
     # Goal: Extract unique values across the entire dataset
     unique_regions = {p["region"] for p in raw_players}
-    # Nested comprehension trick to flatten all achievements
+
     # into one unique set
     unique_achievements = {
         medal for p in raw_players for medal in p["achievements"]
@@ -85,7 +87,8 @@ def main():
     print(f"Total players: {len(raw_players)}")
     print(f"Total unique achievements: {len(unique_achievements)}")
     print(f"Average score: {avg_score}")
-    print(f"Top performer: {top_performer} ({top_score} points)")
+    print(f"Top performer: {top_performer} ({top_score} points,"
+          f"{achievement_counts[top_performer]} achievements)")
 
 
 if __name__ == "__main__":

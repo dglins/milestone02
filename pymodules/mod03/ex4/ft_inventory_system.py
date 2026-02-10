@@ -69,14 +69,12 @@ class InventoryMaster:
 
         print("\n--- Abundance Information ---")
         print(
-            f"Most abundant item: {most_abundant_item[0]} (Quantity: {
-                most_abundant_item[1]
-            })"
+            f"Most abundant item: {most_abundant_item[0]} "
+            f"(Quantity: {most_abundant_item[1]})"
         )
         print(
-            f"Least abundant item: {least_abundant_item[0]} (Quantity: {
-                least_abundant_item[1]
-            })"
+            f"Least abundant item: {least_abundant_item[0]} "
+            f"(Quantity: {least_abundant_item[1]})"
         )
         print("\n----------------------------\n")
 
@@ -156,9 +154,8 @@ class InventoryMaster:
             f"Is '{known_item}' in inventory? {known_item in self.inventory}"
         )
         print(
-            f"Is '{unknown_item}' in inventory? {
-                unknown_item in self.inventory
-            }"
+            f"Is '{unknown_item}' in inventory? "
+            f"{unknown_item in self.inventory}"
         )
         known_item_get = (
             "potion"
@@ -171,14 +168,12 @@ class InventoryMaster:
             "scroll" if "scroll" not in self.inventory else "test_item_D"
         )
         print(
-            f"Quantity of '{known_item_get}': {
-                self.inventory.get(known_item_get)
-            }"
+            f"Quantity of '{known_item_get}': "
+            f"{self.inventory.get(known_item_get)}"
         )
         print(
-            f"Quantity of '{unknown_item_get}': {
-                self.inventory.get(unknown_item_get, 0)
-            }"
+            f"Quantity of '{unknown_item_get}': "
+            f"{self.inventory.get(unknown_item_get, 0)}"
         )
         print("-------------------------------------------")
 
@@ -192,15 +187,13 @@ if __name__ == "__main__":
             initial_inventory_data[item] = quantity
         except ValueError:
             print(
-                f"Warning: Skipping invalid argument format: {
-                    arg
-                }. Expected 'item:quantity'."
+                f"Warning: Skipping invalid argument format: "
+                f"{arg}. Expected 'item:quantity'."
             )
         except IndexError:
             print(
-                f"Warning: Skipping invalid argument format: {
-                    arg
-                }. Expected 'item:quantity'."
+                f"Warning: Skipping invalid argument format: "
+                f"{arg}. Expected 'item:quantity'."
             )
 
     if not initial_inventory_data:

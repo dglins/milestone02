@@ -40,10 +40,8 @@ class CoordinateSystem:
             except ValueError as e:
                 print(f"Error parsing coordinates: {e}")
                 print(
-                    f"Error details - Type: {e.__class__.__name__}, Args: ({
-                        e
-                    })"
-                )
+                    f"Error details - Type: {e.__class__.__name__}, Args: "
+                    f"({e})")
                 return None
         coords_tuple: tuple[int, int, int] = tuple(coords)
         return coords_tuple
