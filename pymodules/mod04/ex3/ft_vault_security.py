@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 
 
-def ft_vault_security():
+def ft_vault_security() -> None:
     print("=== CYBER ARCHIVES - VAULT SECURITY SYSTEM ===")
+
+    print()
     print("Initiating secure vault access...")
     print("Vault connection established with failsafe protocols")
 
     try:
+        print()
         print("SECURE EXTRACTION:")
         with open("classified_data.txt", "r") as vault_file:
             classified_data = vault_file.read()
-            print(f"[CLASSIFIED] {classified_data}")
+            print(f"{classified_data}")
         print("[STANDARD] Data extraction successful. Vault sealed.")
     except FileNotFoundError:
         print(

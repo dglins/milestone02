@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
 
-def ancient_sys(file_name: str = "ancient_fragment.txt"):
+def ancient_sys(file_name: str = "ancient_fragment.txt") -> None:
     print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===\n")
+    print()
     print(f"Accessing Storage Vault: {file_name}")
     file = None
     try:
-        file = open(f"{file_name}")
-        print("Connection established...\n")
+        file = open(file_name)
+        print("Connection established...")
+        print()
         print("RECOVERED DATA:")
         output = file.read()
         print(output)
@@ -16,7 +18,7 @@ def ancient_sys(file_name: str = "ancient_fragment.txt"):
     else:
         print("\nData recovery complete. Storage unit disconnected.")
     finally:
-        if file is not None:
+        if file:
             file.close()
 
 
