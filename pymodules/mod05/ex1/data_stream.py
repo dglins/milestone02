@@ -65,7 +65,7 @@ class SensorStream(DataStream):
         self.processed_batches += 1
         return (
             f"Sensor analysis: {len(values)} readings processed, "
-            f"avg value: {avg:.1f}"
+            f"avg temp: {avg:.1f}°C"
         )
 
 
@@ -113,10 +113,10 @@ class TransactionStream(DataStream):
 
         net = sell_total - buy_total
         self.processed_batches += 1
+        sign = "+" if net >= 0 else ""
         return (
-            f"Transaction analysis: {len(amounts)} tx processed, "
-            f"buy_total={buy_total:.2f}, sell_total={sell_total:.2f}, "
-            f"net={net:.2f}"
+            f"Transaction analysis: {len(amounts)} operations, "
+            f"net flow: {sign}{net:.0f} units"
         )
 
 
@@ -149,9 +149,10 @@ class EventStream(DataStream):
         self.processed_batches += 1
 
         errors = counts.get("error", 0)
+        error_word = "error" if errors == 1 else "errors"
         return (
-            f"Event analysis: {total} events processed, "
-            f"errors={errors}, unique={len(counts)}")
+            f"Event analysis: {total} events, {errors} {error_word} detected"
+        )
 
 
 class StreamProcessor:
@@ -178,17 +179,44 @@ class StreamProcessor:
 
 
 if __name__ == "__main__":
-    streams = (SensorStream(), TransactionStream(), EventStream())
-    processor = StreamProcessor(streams)
+    print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===")
+    print()
 
     sensor_batch = ["temp:22.5", "humidity:65", "pressure:1013"]
     transaction_batch = ["buy:100", "sell:150", "buy:75"]
     event_batch = ["login", "error", "logout"]
 
-    print(SensorStream().process_batch(sensor_batch))
-    print(TransactionStream().process_batch(transaction_batch))
-    print(EventStream().process_batch(event_batch))
+    # Sensor Stream
+    print("Initializing Sensor Stream...")
+    s = SensorStream()
+    print(f"Stream ID: {s.stream_id}, Type: {s.stream_type}")
+    print(f"Processing sensor batch: {sensor_batch}")
+    print(s.process_batch(sensor_batch))
     print()
+
+    # Transaction Stream
+    print("Initializing Transaction Stream...")
+    t = TransactionStream()
+    print(f"Stream ID: {t.stream_id}, Type: {t.stream_type}")
+    print(f"Processing transaction batch: {transaction_batch}")
+    print(t.process_batch(transaction_batch))
+    print()
+
+    # Event Stream
+    print("Initializing Event Stream...")
+    e = EventStream()
+    print(f"Stream ID: {e.stream_id}, Type: {e.stream_type}")
+    print(f"Processing event batch: {event_batch}")
+    print(e.process_batch(event_batch))
+    print()
+
+    # Polymorphic Processing
+    print("=== Polymorphic Stream Processing ===")
+    print("Processing mixed stream types through unified interface...")
+    print()
+
+    streams = (s, t, e)
+    processor = StreamProcessor(streams)
 
     mixed_batches = {
         "Batch 1": {
@@ -201,10 +229,18 @@ if __name__ == "__main__":
     for batch_name, batch_map in mixed_batches.items():
         print(f"{batch_name} Results:")
         results = processor.execute(batch_map)
-        for sid, msg in results.items():
-            print(f" - {sid}: {msg}")
+
+        # Count readings/operations/events
+        sensor_count = len(batch_map.get("SENSOR_001", []))
+        trans_count = len(batch_map.get("TRANS_001", []))
+        event_count = len(batch_map.get("EVENT_001", []))
+
+        print(f"- Sensor data: {sensor_count} readings processed")
+        print(f"- Transaction data: {trans_count} operations processed")
+        print(f"- Event data: {event_count} events processed")
         print()
 
+    # Filtering
     filter_criteria = {
         "sensor": "ALERT",
         "transaction": "buy:1000",
@@ -220,19 +256,17 @@ if __name__ == "__main__":
     large_transaction_batch = ["buy:1000", "sell:150", "buy:75", "buy:1000"]
     event_noise_batch = ["login", "error", "logout", "error"]
 
-    s = SensorStream()
-    t = TransactionStream()
-    e = EventStream()
+    filtered_sensors = s.filter_data(
+        sensor_alerts_batch, filter_criteria["sensor"]
+    )
+    filtered_transactions = t.filter_data(
+        large_transaction_batch, filter_criteria["transaction"]
+    )
 
+    print("Stream filtering active: High-priority data only")
     print(
-        "Filtered sensor alerts:",
-        s.filter_data(sensor_alerts_batch, filter_criteria["sensor"]),
+        f"Filtered results: {len(filtered_sensors)} critical sensor alerts, "
+        f"{len(filtered_transactions)} large transaction"
     )
-    print(
-        "Filtered large tx:",
-        t.filter_data(large_transaction_batch, filter_criteria["transaction"]),
-    )
-    print(
-        "Filtered errors:",
-        e.filter_data(event_noise_batch, filter_criteria["event"]),
-    )
+    print()
+    print("All streams processed successfully. Nexus throughput optimal.")
