@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Union
 class DataStream(ABC):
     def __init__(
         self, stream_id: str, stream_type: str, stream_uses: List[str]
-    ):
+    ) -> None:
         self.stream_id = stream_id
         self.stream_type = stream_type
         self.stream_uses = tuple(stream_uses)
@@ -36,7 +36,7 @@ class SensorStream(DataStream):
     DEFAULT_TYPE = "Environmental Data"
     DEFAULT_USES = ("temp", "humidity", "pressure")
 
-    def __init__(self, stream_id: str = DEFAULT_ID):
+    def __init__(self, stream_id: str = DEFAULT_ID) -> None:
         super().__init__(
             stream_id=stream_id,
             stream_type=self.DEFAULT_TYPE,
@@ -74,7 +74,7 @@ class TransactionStream(DataStream):
     DEFAULT_TYPE = "Financial Data"
     DEFAULT_USES = ("buy", "sell")
 
-    def __init__(self, stream_id: str = DEFAULT_ID):
+    def __init__(self, stream_id: str = DEFAULT_ID) -> None:
         super().__init__(
             stream_id=stream_id,
             stream_type=self.DEFAULT_TYPE,
@@ -125,7 +125,7 @@ class EventStream(DataStream):
     DEFAULT_TYPE = "System Events"
     DEFAULT_USES = ("login", "error", "logout")
 
-    def __init__(self, stream_id: str = DEFAULT_ID):
+    def __init__(self, stream_id: str = DEFAULT_ID) -> None:
         super().__init__(
             stream_id=stream_id,
             stream_type=self.DEFAULT_TYPE,
@@ -156,7 +156,7 @@ class EventStream(DataStream):
 
 
 class StreamProcessor:
-    def __init__(self, streams: List[DataStream]):
+    def __init__(self, streams: List[DataStream]) -> None:
         self.streams_by_id = {s.stream_id: s for s in streams}
 
     def execute(self, batch_map: Dict[str, List[Any]]) -> Dict[str, str]:
