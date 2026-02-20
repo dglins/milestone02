@@ -18,12 +18,21 @@ class InputStage:
                 return {
                     "type": "json",
                     "input": data,
-                    "description": 'Input: {"sensor": "temp", "value": 23.5, "unit": "C"}',
+                    "description": 'Input: {"sensor": "temp", '
+                    '"value": 23.5, "unit": "C"}',
                 }
             case "csv":
-                return {"type": "csv", "input": data, "description": 'Input: "user,action,timestamp"'}
+                return {
+                    "type": "csv",
+                    "input": data,
+                    "description": 'Input: "user,action,timestamp"',
+                }
             case "stream":
-                return {"type": "stream", "input": data, "description": "Input: Real-time sensor stream"}
+                return {
+                    "type": "stream",
+                    "input": data,
+                    "description": "Input: Real-time sensor stream",
+                }
             case _:
                 return data
 
@@ -36,7 +45,9 @@ class TransformStage:
         if isinstance(data, dict) and "type" in data:
             match data["type"]:
                 case "json":
-                    data["transform"] = "Transform: Enriched with metadata and validation"
+                    data["transform"] = (
+                        "Transform: Enriched with metadata and validation"
+                    )
                 case "csv":
                     data["transform"] = "Transform: Parsed and structured data"
                 case "stream":
@@ -52,19 +63,22 @@ class OutputStage:
                     return {
                         "input": data.get("description"),
                         "transform": data.get("transform"),
-                        "output": "Output: Processed temperature reading: 23.5°C (Normal range)",
+                        "output": "Output: Processed temperature reading: "
+                        "23.5°C (Normal range)",
                     }
                 case "csv":
                     return {
                         "input": data.get("description"),
                         "transform": data.get("transform"),
-                        "output": "Output: User activity logged: 1 actions processed",
+                        "output": "Output: User activity logged: "
+                        "1 actions processed",
                     }
                 case "stream":
                     return {
                         "input": data.get("description"),
                         "transform": data.get("transform"),
-                        "output": "Output: Stream summary: 5 readings, avg: 22.1°C",
+                        "output": "Output: Stream summary: 5 readings, "
+                        "avg: 22.1°C",
                     }
         return f"Final output: {data}"
 
@@ -117,7 +131,6 @@ class StreamAdapter(ProcessingPipeline):
 
 class ChainPipeline(ProcessingPipeline):
     def __init__(self, stage_type: str = "generic") -> None:
-        # não chamamos super() porque esse pipeline não usa stages
         self.stages: list[ProcessingStage] = []
 
     def process(self, data: Any) -> Any:
@@ -125,14 +138,15 @@ class ChainPipeline(ProcessingPipeline):
             "header": "=== Pipeline Chaining Demo ===",
             "chain": "Pipeline A -> Pipeline B -> Pipeline C",
             "flow": "Data flow: Raw -> Processed -> Analyzed -> Stored",
-            "result": "Chain result: 100 records processed through 3-stage pipeline",
-            "performance": "Performance: 95% efficiency, 0.2s total processing time",
+            "result": "Chain result: 100 records processed "
+            "through 3-stage pipeline",
+            "performance": "Performance: 95% efficiency, 0.2s "
+            "total processing time",
         }
 
 
 class ErrorRecoveryPipeline(ProcessingPipeline):
     def __init__(self, stage_type: str = "generic") -> None:
-        # não chamamos super() porque esse pipeline não usa stages
         self.stages: list[ProcessingStage] = []
 
     def process(self, data: Any) -> Any:
@@ -141,7 +155,8 @@ class ErrorRecoveryPipeline(ProcessingPipeline):
             "simulating": "Simulating pipeline failure...",
             "error": "Error detected in Stage 2: Invalid data format",
             "recovery": "Recovery initiated: Switching to backup processor",
-            "success": "Recovery successful: Pipeline restored, processing resumed",
+            "success": "Recovery successful: Pipeline restored, "
+            "processing resumed",
         }
 
 
@@ -161,7 +176,6 @@ class NexusManager:
         print("Stage 1: Input validation and parsing")
         print("Stage 2: Data transformation and enrichment")
         print("Stage 3: Output formatting and delivery")
-        # retorna a lista de stages “modelo” (opcional, mas deixa o tipo correto)
         return [InputStage(), TransformStage(), OutputStage()]
 
     def _print_multiformat_result(self, result: dict) -> None:
@@ -210,14 +224,12 @@ if __name__ == "__main__":
     manager = NexusManager()
     manager.initialize_stages()
 
-    # pode ser instanciado com ou sem parâmetro (para passar em testes)
     manager.add(JSONAdapter())
     manager.add(CSVAdapter())
     manager.add(StreamAdapter())
     manager.add(ChainPipeline())
     manager.add(ErrorRecoveryPipeline())
 
-    manager.execute({"sensor": "temp", "value": 22})
-    manager.execute({"sensor": "humidity", "value": 42})
+    manager.execute("initialize it")
 
     manager.finalize()

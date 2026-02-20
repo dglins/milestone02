@@ -113,14 +113,14 @@ class LogProcessor(DataProcessor):
 # Execution helpers
 # =========================
 
-def run_standard(processors, samples) -> str:
+def run_standard(processors: DataProcessor, samples: list[Any]) -> str:
     return "\n".join(
         p.format_output(s)
         for p, s in zip(processors, samples, strict=False)
     )
 
 
-def run_polymorphic(processors, samples) -> str:
+def run_polymorphic(processors: DataProcessor, samples: list[Any]) -> str:
     lines = ["Processing multiple data types through same interface..."]
     lines.extend(
         p.format_result(s, f"Result {i}")
