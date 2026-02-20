@@ -17,9 +17,6 @@ class WaterError(GardenError):
         super().__init__(message)
 
 
-# Functions that raise custom errors
-
-
 def garden_operations(error_type: str) -> None:
     match error_type:
         case "PlantError":
@@ -34,28 +31,31 @@ def garden_operations(error_type: str) -> None:
 
 def test_custom_errors() -> None:
     print("\n=== Custom Garden Errors Demo ===")
-
     try:
-        print("\nTesting PlantError...")
-        garden_operations("PlantError")
-    except PlantError as e:
-        print(f"Caught PlantError: {e}")
-
-    try:
-        print("\nTesting WaterError...")
-        garden_operations("WaterError")
-    except WaterError as e:
-        print(f"Caught WaterError: {e}")
-
-    print("\nTesting catching all garden errors...")
-
-    for test in ("PlantError", "WaterError"):
         try:
-            garden_operations(test)
-        except GardenError as e:
-            print(f"Caught a garden error: {e}")
+            print("\nTesting PlantError...")
+            garden_operations("PlantError")
+        except PlantError as e:
+            print(f"Caught PlantError: {e}")
 
-    print("\nAll custom error types work correctly!")
+        try:
+            print("\nTesting WaterError...")
+            garden_operations("WaterError")
+        except WaterError as e:
+            print(f"Caught WaterError: {e}")
+
+        print("\nTesting catching all garden errors...")
+
+        for test in ("PlantError", "WaterError"):
+            try:
+                garden_operations(test)
+            except GardenError as e:
+                print(f"Caught a garden error: {e}")
+    except Exception:
+        return "Something wrong!"
+    else:
+        print()
+        print("All custom error types work correctly!")
 
 
 if __name__ == "__main__":

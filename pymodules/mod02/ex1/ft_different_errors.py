@@ -38,7 +38,8 @@ def test_error_types() -> None:
 
     for test in tests:
         try:
-            print(f"\nTesting {test}...")
+            print()
+            print(f"Testing {test}...")
             garden_operations(test)
 
         except FileNotFoundError as e:
@@ -49,13 +50,14 @@ def test_error_types() -> None:
 
         except Exception as e:
             print(f"Caught {e.__class__.__name__}: {e.args[0]}")
-
-    print("\nTesting multiple errors together...")
+    print()
+    print("Testing multiple errors together...")
     try:
         garden_operations("ValueError")
         garden_operations("ZeroDivisionError")
     except (ValueError, ZeroDivisionError):
-        print("Caught an error, but program continues!\n")
+        print("Caught an error, but program continues!")
+        print()
 
     print("All error types tested successfully!")
 

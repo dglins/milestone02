@@ -85,53 +85,64 @@ class GardenManager:
 
 def test_garden_management() -> None:
     print("=== Garden Management System ===")
-    garden = GardenManager()
 
-    # -----------------
-    # Adding plants
-    # -----------------
-
-    print("Adding plants to garden...")
-    for plant in ("tomato", "lettuce", ""):
-        try:
-            garden.add_plant(plant)
-            print(f"Added {plant} successfully")
-        except PlantError as e:
-            print(f"Error adding plant: {e}")
-
-    # -----------------
-    # Watering
-    # -----------------
-
-    print("Watering plants...")
     try:
-        garden.water_plants()
-    except WaterError as e:
-        print(f"Water error: {e}")
+        garden = GardenManager()
 
-    # -----------------
-    # Health check
-    # -----------------
+        # -----------------
+        # Adding plants
+        # -----------------
 
-    print("Checking plant health...")
-    garden.plants["lettuce"]["water"] = 15
-    for plant in ("tomato", "lettuce"):
+        print()
+        print("Adding plants to garden...")
+        for plant in ("tomato", "lettuce", ""):
+            try:
+                garden.add_plant(plant)
+                print(f"Added {plant} successfully")
+            except PlantError as e:
+                print(f"Error adding plant: {e}")
+
+        # -----------------
+        # Watering
+        # -----------------
+
+        print()
+        print("Watering plants...")
         try:
-            garden.check_plant_health(plant)
-        except ValueError as e:
-            print(f"Error checking {plant}: {e}")
+            garden.water_plants()
+        except WaterError as e:
+            print(f"Water error: {e}")
 
-    # -----------------
-    # Error recovery
-    # -----------------
+        # -----------------
+        # Health check
+        # -----------------
 
-    print("Testing error recovery...")
-    try:
-        raise WaterError("Not enough water in tank")
-    except GardenError as e:
-        print(f"Caught GardenError: {e}")
-    print("System recovered and continuing...")
-    print("Garden management system test complete!")
+        print()
+        print("Checking plant health...")
+        garden.plants["lettuce"]["water"] = 15
+        for plant in ("tomato", "lettuce"):
+            try:
+                garden.check_plant_health(plant)
+            except ValueError as e:
+                print(f"Error checking {plant}: {e}")
+
+        # -----------------
+        # Error recovery
+        # -----------------
+
+        print()
+        print("Testing error recovery...")
+        try:
+            raise WaterError("Not enough water in tank")
+        except GardenError as e:
+            print(f"Caught GardenError: {e}")
+        print("System recovered and continuing...")
+    except Exception:
+        print("Something wrong!")
+        return
+    else:
+        print()
+        print("Garden management system test complete!")
 
 
 if __name__ == "__main__":
