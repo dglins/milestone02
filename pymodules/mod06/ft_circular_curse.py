@@ -6,8 +6,14 @@ def main() -> None:
     print()
 
     print("Testing ingredient validation:")
-    print(f'validate_ingredients("fire air"): {validate_ingredients("fire air")}')
-    print(f'validate_ingredients("shadow dust"): {validate_ingredients("shadow dust")}')
+    print(
+        f'validate_ingredients("fire air"): '
+        f'{validate_ingredients("fire air")}'
+        )
+    print(
+        f'validate_ingredients("shadow dust"): '
+        f'{validate_ingredients("shadow dust")}'
+        )
     print()
 
     print("Testing spell recording (uses late import inside record_spell):")

@@ -1,5 +1,6 @@
 from alchemy.transmutation.basic import lead_to_gold, stone_to_gem
 from alchemy.transmutation.advanced import elixir_of_life, philosophers_stone
+import alchemy
 
 
 def main() -> None:
@@ -14,6 +15,19 @@ def main() -> None:
     print("Testing Relative Imports (from advanced.py):")
     print(f"philosophers_stone(): {philosophers_stone()}")
     print(f"elixir_of_life(): {elixir_of_life()}")
+    print()
+
+    print("Testing Package Access:")
+    print(
+        f"alchemy.transmutation.lead_to_gold(): "
+        f"{alchemy.transmutation.lead_to_gold()}"
+        )
+    print(
+        f"alchemy.transmutation.philosophers_stone(): "
+        f"{alchemy.transmutation.philosophers_stone()}"
+        )
+
+    print("Both pathways work! Absolute: clear, Relative: concise")
 
 
 if __name__ == "__main__":
