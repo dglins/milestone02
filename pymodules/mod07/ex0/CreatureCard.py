@@ -1,40 +1,35 @@
-from Card import Card
+from ex0.Card import Card, Rarity, CardType
 
 
-# CreatureCard (Concrete Implementation)
 class CreatureCard(Card):
     def __init__(
-        self, name: str, cost: int, rarity: str, attack: int, health: int
-    ) -> None:
-        super().__init__(name, cost, rarity)
+            self, name: str, cost: int, rarity: Rarity,
+            attack: int, health: int
+            ) -> None:
+        super().__init__(name, cost, rarity, CardType.CREATURE)
+        if attack <= 0 or health <= 0:
+            raise ValueError("attack and health must be > 0")
         self.attack = attack
         self.health = health
-        self.mana = 6
-
-    def set_mana(self, change_mana):
-        self.mana = change_mana
 
     def play(self, game_state: dict) -> dict:
-        play_result = {'card_played': self.name,
-                       'mana_used': self.cost,
-                       'effect': 'None'}
-        playable = self.is_playable(game_state['mana'])
+        print(f"Playing {self.name} with {game_state['mana']} mana available:")
+        playable = self.is_playable(game_state["mana"])
+        print(f"Playable: {playable}")
+
+        result = {
+            "card_played": self.name, "mana_used": self.cost, "effect": "None"
+            }
         if playable:
-            self.mana -= self.cost
-            play_result['effect'] = 'Creature summoned to battlefield'
-        return play_result
+            game_state["mana"] -= self.cost
+            result["effect"] = "Creature summoned to battlefield"
+        return result
 
-    def attack_target(self, target: Card) -> dict:
-        enemy_state = target.get_card_info()
-        attack_result = {
-            'attacker': self.name, 'target': enemy_state['name'],
-            'damage_dealt': self.attack, 'combat_resolved': False}
-        if enemy_state['health'] <= self.attack:
-            attack_result['combat_resolved'] = True
-        return attack_result
-
-    def _validade_health(self):
-        return self.health > 0
-
-    def _validade_attack(self):
-        return self.attack > 0
+    def attack_target(self, target: "CreatureCard") -> dict:
+        print(f"{self.name} attacks {target.name}:")
+        return {
+            "attacker": self.name,
+            "target": target.name,
+            "damage": self.attack,
+            "combat_type": "melee",
+        }
