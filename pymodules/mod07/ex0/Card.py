@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 # Card (Abstract Base Class)
 class Card(ABC):
     def __init__(self, name: str, cost: int, rarity: str) -> None:
@@ -12,7 +13,7 @@ class Card(ABC):
         raise NotImplementedError
 
     def get_card_info(self) -> dict:
-        return {"name": self.name, "cost": self.cost, "rarity": self.rarity}
+        return self.__dict__
 
     def is_playable(self, available_mana: int) -> bool:
         return available_mana >= self.cost
