@@ -14,7 +14,7 @@ def main() -> None:
     deck.add_card(SpellCard("Lightning Bolt", 3, Rarity.RARE, "damage"))
     deck.add_card(
         ArtifactCard("Mana Crystal", 2, Rarity.COMMON, 10, "+1 mana per turn")
-        )
+    )
 
     print(f"Deck stats: {deck.get_deck_stats()}")
     print("Drawing and playing cards:\n")

@@ -18,8 +18,8 @@ class Rarity(Enum):
 # Card (Abstract Base Class)
 class Card(ABC):
     def __init__(
-            self, name: str, cost: int, rarity: Rarity, card_type: CardType
-            ) -> None:
+        self, name: str, cost: int, rarity: Rarity, card_type: CardType
+    ) -> None:
         if cost < 0:
             raise ValueError("cost must be >= 0")
         self.name = name
