@@ -25,7 +25,7 @@ class AggressiveStrategy(GameStrategy):
             battlefield.append(c)
             cards_played.append(c.name)
             mana_used += c.cost
-            damage_dealt += getattr(c, "attack", 2)
+            damage_dealt += getattr(c, "attack", 0)
 
         if spells:
             s = spells[0]

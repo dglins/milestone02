@@ -20,12 +20,18 @@ def main() -> None:
     platform.register_card(wizard)
 
     print("Fire Dragon (ID: dragon_001):")
-    print("- Interfaces: [Card, Combatable, Rankable]")
+    dragon_interfaces = ", ".join(
+        base.__name__ for base in type(dragon).__bases__
+        )
+    print(f"- Interfaces: [{dragon_interfaces}]")
     print(f"- Rating: {dragon.rating}")
     print(f"- Record: {dragon.wins}-{dragon.losses}\n")
 
     print("Ice Wizard (ID: wizard_001):")
-    print("- Interfaces: [Card, Combatable, Rankable]")
+    wizard_interfaces = ", ".join(
+        base.__name__ for base in type(wizard).__bases__
+        )
+    print(f"- Interfaces: [{wizard_interfaces}]")
     print(f"- Rating: {wizard.rating}")
     print(f"- Record: {wizard.wins}-{wizard.losses}\n")
 
@@ -40,6 +46,7 @@ def main() -> None:
 
     print("\nPlatform Report:")
     print(platform.generate_tournament_report())
+    print()
 
     print("=== Tournament Platform Successfully Deployed! ===")
     print("All abstract patterns working together harmoniously!")

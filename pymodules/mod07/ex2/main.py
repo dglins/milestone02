@@ -27,6 +27,7 @@ def main() -> None:
 
     print("Magic phase:")
     print(f"Spell cast: {elite.cast_spell('Fireball', ['Enemy1', 'Enemy2'])}")
+    elite.channel_mana(4)
     print(f"Mana channel: {elite.channel_mana(3)}")
     print()
 
